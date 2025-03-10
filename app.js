@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const menuRouter = require('./routers/menuRouter');
 const reviewRouter = require('./routers/reviewRoute');
+const authRouter = require('./routers/authRouter');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', menuRouter);
 app.use('/api', reviewRouter);
+app.use('/api', authRouter);
 
 app.get('/', (req, res) => {
   res
