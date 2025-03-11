@@ -6,7 +6,7 @@ const {
 } = require('../controllers/authController');
 const router = express.Router();
 
-router.get('/allUser', getAllUser);
+router.get('/alluser', getAllUser);
 router.post('/register', registerUser);
 router.patch('/makeadmin/:id', makeAdmin);
 
