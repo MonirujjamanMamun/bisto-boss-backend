@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const generateToken = require('../utils/generateToken');
 
 const getAllUser = async (req, res) => {
   try {
@@ -50,10 +51,12 @@ const registerUser = async (req, res) => {
     const newUser = new User({ uid, name, email, last_login: Date.now() });
     await newUser.save();
 
+    const token = generateToken(newUser);
     return res.status(201).json({
       success: true,
       message: 'User created successfully.',
       user: newUser,
+      token,
     });
   } catch (error) {
     return res.status(500).json({
