@@ -51,11 +51,51 @@ const registerUser = async (req, res) => {
     const newUser = new User({ uid, name, email, last_login: Date.now() });
     await newUser.save();
 
-    const token = generateToken(newUser);
+    const token = await generateToken(newUser);
     return res.status(201).json({
       success: true,
       message: 'User created successfully.',
       user: newUser,
+      token,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong.',
+      error: error.message,
+    });
+  }
+};
+
+const loginUser = async (req, res) => {
+  const { uid, email } = req.body;
+
+  if (!uid || !email) {
+    return res.status(400).json({
+      success: false,
+      message: 'All fields are required.',
+    });
+  }
+
+  try {
+    // Find an existing user by UID or email
+    const findUser = await User.findOne({
+      $or: [{ uid }, { email }],
+    });
+
+    if (!findUser) {
+      return res.status(400).json({
+        success: false,
+        message: 'No user found, please register.',
+      });
+    }
+    findUser.last_login = Date.now();
+    await findUser.save();
+    const token = await generateToken(findUser);
+    return res.status(200).json({
+      success: true,
+      message: 'User login successfully.',
+      findUser,
       token,
     });
   } catch (error) {
@@ -99,4 +139,33 @@ const makeAdmin = async (req, res) => {
   }
 };
 
-module.exports = { getAllUser, registerUser, makeAdmin };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({
+      success: false,
+      message: 'Id is required',
+    });
+  }
+  try {
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'User is not exists',
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: `${user.name} was deleted`,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong.',
+      error: error.message,
+    });
+  }
+};
+module.exports = { getAllUser, registerUser, makeAdmin, loginUser, deleteUser };

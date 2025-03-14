@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { jwt_secret } = require('./allSecretExpt/allSecretExpt');
 
-const generateToken = (user) => {
+const generateToken = async (user) => {
   return jwt.sign(
     { uid: user.uid, email: user.email, role: user.role }, // Payload
     process.env.jwt_secret, // Secret key
