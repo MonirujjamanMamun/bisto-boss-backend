@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const { mongo_uri } = require('../allSecretExpt/allSecretExpt');
 
 const dbConnection = async () => {
   try {
-    await mongoose.connect(mongo_uri);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('db is connected successfully');
   } catch (error) {
     console.log('db is not connected', error.message);

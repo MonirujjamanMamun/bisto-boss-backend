@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { jwt_secret } = require('../utils/allSecretExpt/allSecretExpt');
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -10,7 +9,7 @@ const verifyToken = (req, res, next) => {
     });
 
   try {
-    const verified = jwt.verify(token, jwt_secret);
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
     req.user = verified; // Attach user info to the request
     next();
   } catch (err) {
