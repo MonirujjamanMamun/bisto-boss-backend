@@ -8,7 +8,14 @@ const cartRouter = require('./routers/cartRouter');
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:5173', 'https://bisto-boss-frontend.vercel.app'], // Allow local dev and deployed frontend
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], // Allow specific HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+    // credentials: true // If using cookies or authentication
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
