@@ -29,7 +29,7 @@ const addCart = async (req, res) => {
   try {
     const userId = req.user.id;
     const { menuItemId, quantity } = req.body;
-    if (!menuItemId || !quantity || quantity < 0) {
+    if (!menuItemId) {
       return res.status(400).json({
         success: false,
         message: 'Invalid request data',
@@ -43,7 +43,7 @@ const addCart = async (req, res) => {
       });
     }
 
-    const cart = await Cart.findOne(userId);
+    let cart = await Cart.findOne({ userId });
     if (!cart) {
       cart = new Cart({ userId, items: [{ menuItemId, quantity }] });
     } else {
