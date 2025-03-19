@@ -1,10 +1,12 @@
+const { default: mongoose } = require('mongoose');
 const Cart = require('../models/cart.Model');
 const Menu = require('../models/menu.model');
 
 const allCart = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const cart = await Cart.findOne(userId).populate('items.menuItemId');
+    const userId = req.user._id;
+    const cart = await Cart.findOne({ userId }).populate('items.menuItemId');
+    console.log('cart', cart);
     if (!cart || cart.items.length === 0) {
       return res.status(404).json({
         success: false,
@@ -27,7 +29,7 @@ const allCart = async (req, res) => {
 
 const addCart = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
     const { menuItemId, quantity } = req.body;
     if (!menuItemId) {
       return res.status(400).json({
