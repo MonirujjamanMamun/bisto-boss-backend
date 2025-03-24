@@ -49,6 +49,39 @@ const addMenuItem = async (req, res) => {
   }
 };
 
+const editMenuItemById = async (req, res) => {
+  const { id } = req.params;
+  const { name, recipe, image, category, price } = req.body;
+
+  try {
+    const updatedMenu = await Menu.findByIdAndUpdate(
+      id,
+      { name, recipe, image, category, price },
+      { new: true, runValidators: true } // Return the updated document
+    );
+
+    if (!updatedMenu) {
+      return res.status(404).json({
+        success: false,
+        message: 'Menu item not found, provide a valid Id',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Menu item updated successfully',
+      updatedMenu,
+    });
+  } catch (error) {
+    console.log('Edit menu error:', error.message);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong, couldn't update menu",
+      error: error.message,
+    });
+  }
+};
+
 const getMenuById = async (req, res) => {
   const { id } = req.params;
   if (!id) {
@@ -110,4 +143,10 @@ const deleteMenuById = async (req, res) => {
     });
   }
 };
-module.exports = { getAllMenu, addMenuItem, getMenuById, deleteMenuById };
+module.exports = {
+  getAllMenu,
+  addMenuItem,
+  getMenuById,
+  editMenuItemById,
+  deleteMenuById,
+};

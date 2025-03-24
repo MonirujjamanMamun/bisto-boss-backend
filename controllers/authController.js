@@ -1,6 +1,13 @@
 const User = require('../models/user.model');
 const generateToken = require('../utils/generateToken');
 
+const tokenResponse = async (req, res) => {
+  return res.status(200).json({
+    success: true,
+    message: `Valid token`,
+  });
+};
+
 const getAllUser = async (req, res) => {
   try {
     const allUser = await User.find();
@@ -168,4 +175,11 @@ const deleteUser = async (req, res) => {
     });
   }
 };
-module.exports = { getAllUser, registerUser, makeAdmin, loginUser, deleteUser };
+module.exports = {
+  tokenResponse,
+  getAllUser,
+  registerUser,
+  makeAdmin,
+  loginUser,
+  deleteUser,
+};

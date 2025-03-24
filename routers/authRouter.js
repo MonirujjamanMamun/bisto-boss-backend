@@ -1,5 +1,6 @@
 const express = require('express');
 const {
+  tokenResponse,
   getAllUser,
   registerUser,
   loginUser,
@@ -10,6 +11,7 @@ const { verifyToken } = require('../middlewares/verifyToken');
 const checkAdmin = require('../middlewares/checkAdmin');
 const router = express.Router();
 
+router.post('/jwt', verifyToken, tokenResponse);
 router.get('/alluser', verifyToken, checkAdmin, getAllUser);
 router.post('/register', registerUser);
 router.post('/login', loginUser);

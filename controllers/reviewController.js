@@ -78,6 +78,36 @@ const addReview = async (req, res) => {
   }
 };
 
+const editReviewById = async (req, res) => {
+  const { id } = req.params;
+  const { name, details, rating } = req.body;
+
+  try {
+    const updateReview = await Reviews.findByIdAndUpdate(id, {
+      name,
+      details,
+      rating,
+    });
+    if (!updateReview) {
+      return res.status(400).json({
+        success: false,
+        message: 'Review not found, Provide a valid Id',
+      });
+    }
+    return res.status(201).json({
+      success: true,
+      message: 'Review update successfully',
+      updateReview,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error: error.message,
+    });
+  }
+};
+
 const deleteReview = async (req, res) => {
   const { id } = req.params;
   if (!id) {
@@ -109,4 +139,10 @@ const deleteReview = async (req, res) => {
   }
 };
 
-module.exports = { getAllReview, addReview, getReviewById, deleteReview };
+module.exports = {
+  getAllReview,
+  addReview,
+  editReviewById,
+  getReviewById,
+  deleteReview,
+};
