@@ -54,18 +54,25 @@ const editMenuItemById = async (req, res) => {
   const { name, recipe, image, category, price } = req.body;
 
   try {
-    const updatedMenu = await Menu.findByIdAndUpdate(
-      id,
-      { name, recipe, image, category, price },
-      { new: true, runValidators: true } // Return the updated document
-    );
+    // Find menu item by ID
+    const existingMenu = await Menu.findById(id);
 
-    if (!updatedMenu) {
+    if (!existingMenu) {
       return res.status(404).json({
         success: false,
-        message: 'Menu item not found, provide a valid Id',
+        message: 'Menu item not found, provide a valid ID',
       });
     }
+
+    // Update the menu item fields
+    existingMenu.name = name || existingMenu.name;
+    existingMenu.recipe = recipe || existingMenu.recipe;
+    existingMenu.image = image || existingMenu.image;
+    existingMenu.category = category || existingMenu.category;
+    existingMenu.price = price || existingMenu.price;
+
+    // Save the updated menu item
+    const updatedMenu = await existingMenu.save();
 
     return res.status(200).json({
       success: true,
@@ -73,7 +80,7 @@ const editMenuItemById = async (req, res) => {
       updatedMenu,
     });
   } catch (error) {
-    console.log('Edit menu error:', error.message);
+    console.error('Edit menu error:', error.message);
     return res.status(500).json({
       success: false,
       message: "Something went wrong, couldn't update menu",

@@ -8,6 +8,31 @@ const tokenResponse = async (req, res) => {
   });
 };
 
+const getUserRole = async (req, res) => {
+  const userId = req.user._id;
+  try {
+    const findUser = await User.findById(userId);
+    if (!findUser) {
+      return res.status(400).json({
+        success: false,
+        message: 'No user found',
+      });
+    }
+    const user = findUser.role;
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Something is wrong',
+      error: error.message,
+    });
+  }
+};
+
 const getAllUser = async (req, res) => {
   try {
     const allUser = await User.find();
@@ -182,4 +207,5 @@ module.exports = {
   makeAdmin,
   loginUser,
   deleteUser,
+  getUserRole,
 };
