@@ -77,7 +77,8 @@ const addCart = async (req, res) => {
 const deleteCartItem = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { menuItemId } = req.params; // Get menuItemId from URL params
+    const { menuItemId } = req.params;
+    console.log('delete cart menuItem id', menuItemId);
 
     if (!menuItemId) {
       return res.status(400).json({
