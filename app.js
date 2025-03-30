@@ -5,6 +5,7 @@ const menuRouter = require('./routers/menuRouter');
 const reviewRouter = require('./routers/reviewRoute');
 const authRouter = require('./routers/authRouter');
 const cartRouter = require('./routers/cartRouter');
+const paymentRouter = require('./routers/paymentRouter');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/api', menuRouter);
 app.use('/api', reviewRouter);
 app.use('/api', authRouter);
 app.use('/api', cartRouter);
+app.use('/api', paymentRouter);
 
 app.get('/', (req, res) => {
   res

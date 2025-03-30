@@ -1,4 +1,3 @@
-const { default: mongoose } = require('mongoose');
 const Cart = require('../models/cart.Model');
 const Menu = require('../models/menu.model');
 
@@ -6,7 +5,7 @@ const allCart = async (req, res) => {
   try {
     const userId = req.user._id;
     const cart = await Cart.findOne({ userId }).populate('items.menuItemId');
-    console.log('cart', cart);
+
     if (!cart || cart.items.length === 0) {
       return res.status(404).json({
         success: false,
@@ -16,7 +15,8 @@ const allCart = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'cart items',
-      cartItems: cart.items,
+      // cartItems: cart.items,
+      cart,
     });
   } catch (error) {
     return res.status(500).json({
@@ -78,7 +78,7 @@ const deleteCartItem = async (req, res) => {
   try {
     const userId = req.user._id;
     const { menuItemId } = req.params;
-    console.log('delete cart menuItem id', menuItemId);
+    // console.log('delete cart menuItem id', menuItemId);
 
     if (!menuItemId) {
       return res.status(400).json({
@@ -150,4 +150,9 @@ const resetCart = async (req, res) => {
   }
 };
 
-module.exports = { allCart, addCart, deleteCartItem, resetCart };
+module.exports = {
+  allCart,
+  addCart,
+  deleteCartItem,
+  resetCart,
+};
