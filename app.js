@@ -6,6 +6,7 @@ const reviewRouter = require('./routers/reviewRoute');
 const authRouter = require('./routers/authRouter');
 const cartRouter = require('./routers/cartRouter');
 const paymentRouter = require('./routers/paymentRouter');
+const statsRouter = require('./routers/statsRouter');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api', reviewRouter);
 app.use('/api', authRouter);
 app.use('/api', cartRouter);
 app.use('/api', paymentRouter);
+app.use('/api', statsRouter);
 
 app.get('/', (req, res) => {
   res
