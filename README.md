@@ -49,18 +49,18 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 npm run dev
 ```
 
-### Frontend Setup:
+## Project Structure
 
-```sh
-# Clone the frontend repository
-git clone https://github.com/MonirujjamanMamun/bisto-boss-frontend
-cd bisto-boss-frontend
-
-# Install dependencies
-npm install
-
-# Start the frontend
-npm start
+```
+├── controllers     # Request handlers
+├── middlewares     # Custom middleware (auth,verifyToken,checkAdmin error handling, etc.)
+├── models          # Mongoose schemas
+├── routes          # Express routes
+├── utils           # Configuration files (DB connection, etc.)
+├── app.js          # Main file
+├── server.js       # Main entry point
+├── package.json    # Dependencies and scripts
+└── .env            # Environment variables (ignored in Git)
 ```
 
 ## 📡 API Endpoints
@@ -113,20 +113,6 @@ npm start
 - **Nodemon** for live backend reloads
 - **Postman** for API testing
 - **MongoDB Compass** for database management
-
-## Project Structure
-
-```
-├── controllers     # Request handlers
-├── middlewares     # Custom middleware (auth,verifyToken,checkAdmin error handling, etc.)
-├── models          # Mongoose schemas
-├── routes          # Express routes
-├── utils           # Configuration files (DB connection, etc.)
-├── app.js          # Main file
-├── server.js       # Main entry point
-├── package.json    # Dependencies and scripts
-└── .env            # Environment variables (ignored in Git)
-```
 
 ## 🎯 Future Enhancements
 
