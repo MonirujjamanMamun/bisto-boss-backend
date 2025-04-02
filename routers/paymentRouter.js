@@ -9,7 +9,7 @@ const { verifyToken } = require('../middlewares/verifyToken');
 const router = express.Router();
 
 router.post('/payments', verifyToken, payments);
-router.post('/create-payment-intent', createPaymentIntent);
+router.post('/create-payment-intent', verifyToken, createPaymentIntent);
 router.get('/paymenthistory', verifyToken, getPaymentHistory);
 
 module.exports = router;
