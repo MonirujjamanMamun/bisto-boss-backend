@@ -140,4 +140,4 @@ Contributions are welcome! Feel free to fork and submit pull requests.
 
 ## 📩 Contact
 
-For inquiries, reach out at: [[My-mail](monirujjamanmamun2357@gmail.com)]
+For inquiries, reach out at: [monirujjamanmamun2357@gmail.com]
