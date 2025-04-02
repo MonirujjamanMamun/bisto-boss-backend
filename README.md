@@ -114,7 +114,7 @@ npm start
 - **Postman** for API testing
 - **MongoDB Compass** for database management
 
-### Backend
+## Project Structure
 
 ```
 ├── controllers     # Request handlers
@@ -132,6 +132,7 @@ npm start
 
 - Real-time notifications for order updates
 - Admin dashboard and User dashboard add more feature
+- Update many more feature day by day
 
 ## 🤝 Contributing
 
@@ -139,4 +140,4 @@ Contributions are welcome! Feel free to fork and submit pull requests.
 
 ## 📩 Contact
 
-For inquiries, reach out at: [[My-mail](mailto:monirujjamanmamun2357@gmail.com)]
+For inquiries, reach out at: [[My-mail](monirujjamanmamun2357@gmail.com)]
