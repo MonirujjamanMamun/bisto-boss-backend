@@ -26,14 +26,13 @@ const tokenResponse = async (req, res) => {
 const getUserRole = async (req, res) => {
   const userId = req.user._id;
   try {
-    const findUser = await User.findById(userId);
-    if (!findUser) {
+    const user = await User.findById(userId);
+    if (!user) {
       return res.status(400).json({
         success: false,
         message: 'No user found',
       });
     }
-    const user = findUser.role;
     return res.status(200).json({
       success: true,
       user,
