@@ -29,12 +29,6 @@ app.use('/api', cartRouter);
 app.use('/api', paymentRouter);
 app.use('/api', statsRouter);
 
-app.get('/debug-env', (req, res) => {
-  res.json({
-    stripeKey: process.env.STRIPE_SECRET_KEY ? 'Loaded' : 'Missing',
-  });
-});
-
 app.get('/', (req, res) => {
   res
     .status(200)
